@@ -21,4 +21,8 @@
         <Using Include="NUnit.Framework"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ContactHouse.API\ContactHouse.API.csproj" />
+    </ItemGroup>
+
 </Project>
