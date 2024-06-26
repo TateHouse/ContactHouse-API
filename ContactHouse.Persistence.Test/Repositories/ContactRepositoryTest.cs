@@ -94,6 +94,34 @@ public sealed class ContactRepositoryTest
 		Assert.That(contact, Is.Null);
 	}
 
+	[Test]
+	public async Task GivenEmptyDatabaseContext_WhenDeleteContactAsync_ThenReturnsFalse()
+	{
+		var wasDeleted = await contactRepository.DeleteContactAsync(1);
+
+		Assert.That(wasDeleted, Is.False);
+	}
+
+	[Test]
+	public async Task GivenNonEmptyDatabaseContextAndContactIdThatExists_WhenDeleteContactAsync_ThenReturnsTrue()
+	{
+		await SeedDatabaseAsync();
+
+		var wasDeleted = await contactRepository.DeleteContactAsync(1);
+
+		Assert.That(wasDeleted, Is.True);
+	}
+
+	[Test]
+	public async Task GivenNonEmptyDatabaseContextAndContactIdThatDoesNotExist_WhenDeleteContactAsync_ThenReturnsFalse()
+	{
+		await SeedDatabaseAsync();
+
+		var wasDeleted = await contactRepository.DeleteContactAsync(-1);
+
+		Assert.That(wasDeleted, Is.False);
+	}
+
 	private async Task SeedDatabaseAsync()
 	{
 		await contactDatabaseContext.Contacts.AddRangeAsync(databaseContacts);

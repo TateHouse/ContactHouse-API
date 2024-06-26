@@ -5,4 +5,5 @@ public interface IContactRepository
 {
 	public Task<IEnumerable<Contact>> GetContactsAsync();
 	public Task<Contact?> GetContactAsync(int contactId);
+	public Task<bool> DeleteContactAsync(int contactId);
 }

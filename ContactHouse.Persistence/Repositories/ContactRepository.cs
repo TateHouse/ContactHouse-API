@@ -21,4 +21,20 @@ public sealed class ContactRepository : IContactRepository
 	{
 		return await contactDatabaseContext.Contacts.FirstOrDefaultAsync(contact => contact.ContactId == contactId);
 	}
+
+	public async Task<bool> DeleteContactAsync(int contactId)
+	{
+		var contact = await GetContactAsync(contactId);
+
+		if (contact == null)
+		{
+			return false;
+		}
+
+		contactDatabaseContext.Contacts.Remove(contact);
+
+		var resultCount = await contactDatabaseContext.SaveChangesAsync();
+
+		return resultCount > 0;
+	}
 }
