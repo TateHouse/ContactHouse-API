@@ -61,6 +61,29 @@ public sealed class ContactRepositoryTest
 		Assert.That(contacts, Has.Exactly(2).Items);
 	}
 
+	[Test]
+	public async Task GivenEmptyDatabaseContext_WhenGetContactAsync_ThenReturnsNoContacts()
+	{
+		var contact = await contactRepository.GetContactAsync(1);
+
+		Assert.That(contact, Is.Null);
+	}
+
+	[Test]
+	public async Task GivenNonEmptyDatabaseContext_WhenGetContactAsync_ThenReturnsContact()
+	{
+		await SeedDatabaseAsync();
+
+		var contact = await contactRepository.GetContactAsync(1);
+
+		Assert.That(contact, Is.Not.Null);
+		Assert.Multiple(() =>
+		{
+			Assert.That(contact.ContactId, Is.EqualTo(1));
+			Assert.That(contact.FirstName, Is.EqualTo("John"));
+		});
+	}
+
 	private async Task SeedDatabaseAsync()
 	{
 		await contactDatabaseContext.Contacts.AddRangeAsync(databaseContacts);
