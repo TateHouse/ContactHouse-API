@@ -10,8 +10,4 @@
       <ProjectReference Include="..\ContactHouse.Services\ContactHouse.Services.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.6" />
-    </ItemGroup>
-
 </Project>
