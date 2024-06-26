@@ -10,7 +10,8 @@ public sealed class ContactDatabaseSeeder : IContactDatabaseSeeder
 		{
 			ContactId = 1,
 			FirstName = "John",
-			LastName = "Doe"
+			LastName = "Doe",
+			CompanyName = "Doe Incorporated"
 		},
 		new Contact
 		{
@@ -27,6 +28,7 @@ public sealed class ContactDatabaseSeeder : IContactDatabaseSeeder
 		{
 			ContactId = 4,
 			FirstName = "Clark",
+			CompanyName = "Clark's Cars"
 		},
 	};
 
