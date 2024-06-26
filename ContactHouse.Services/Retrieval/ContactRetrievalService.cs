@@ -20,4 +20,11 @@ public sealed class ContactRetrievalService : IContactRetrievalService
 
 		return mapper.Map<IEnumerable<PartialContactDTO>>(contacts);
 	}
+
+	public async Task<ContactDTO?> GetContactAsync(int contactId)
+	{
+		var contact = await contactRepository.GetContactAsync(contactId);
+
+		return mapper.Map<ContactDTO>(contact);
+	}
 }
