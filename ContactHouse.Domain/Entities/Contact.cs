@@ -1,5 +1,5 @@
 ﻿namespace ContactHouse.Domain.Entities;
 public class Contact
 {
-	public int ContactId;
+	public int ContactId { get; set; }
 }
