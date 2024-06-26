@@ -8,19 +8,23 @@ public sealed class ContactDatabaseSeeder : IContactDatabaseSeeder
 	{
 		new Contact
 		{
-			ContactId = 1
+			ContactId = 1,
+			FirstName = "John",
 		},
 		new Contact
 		{
-			ContactId = 2
+			ContactId = 2,
+			FirstName = "Bob",
 		},
 		new Contact
 		{
-			ContactId = 3
+			ContactId = 3,
+			FirstName = "Samantha",
 		},
 		new Contact
 		{
-			ContactId = 4
+			ContactId = 4,
+			FirstName = "Clark",
 		},
 	};
 

@@ -14,11 +14,13 @@ public sealed class ContactRepositoryTest
 	{
 		new Contact
 		{
-			ContactId = 1
+			ContactId = 1,
+			FirstName = "John",
 		},
 		new Contact
 		{
-			ContactId = 2
+			ContactId = 2,
+			FirstName = "Bob"
 		}
 	};
 

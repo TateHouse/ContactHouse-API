@@ -18,5 +18,6 @@ public class ContactDatabaseContext : DbContext
 
 		var entityBuilder = modelBuilder.Entity<Contact>();
 		entityBuilder.HasKey(entity => entity.ContactId);
+		entityBuilder.Property(entity => entity.FirstName).IsRequired();
 	}
 }
