@@ -7,6 +7,7 @@ public sealed class ResponseContactProfile : Profile
 {
 	public ResponseContactProfile()
 	{
+		CreateMap<ContactDTO, ResponseContactDTO>();
 		CreateMap<PartialContactDTO, ResponsePartialContactDTO>();
 	}
 }
