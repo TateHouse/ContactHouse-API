@@ -24,6 +24,15 @@ public class Program
 		if (application.Environment.IsDevelopment())
 		{
 			application.UseDeveloperExceptionPage();
+
+			var shouldSeedDatabase = webApplicationBuilder.Configuration.GetValue<bool>("SeedDatabase");
+
+			if (shouldSeedDatabase)
+			{
+				using var scope = application.Services.CreateScope();
+				var contactDatabaseSeeder = scope.ServiceProvider.GetRequiredService<IContactDatabaseSeeder>();
+				await contactDatabaseSeeder.SeedDatabaseAsync();
+			}
 		}
 
 		ContactEndpoints.ConfigureEndpoints(application);
