@@ -16,4 +16,9 @@ public sealed class ContactRepository : IContactRepository
 	{
 		return await contactDatabaseContext.Contacts.ToListAsync();
 	}
+
+	public async Task<Contact?> GetContactAsync(int contactId)
+	{
+		return await contactDatabaseContext.Contacts.FirstOrDefaultAsync(contact => contact.ContactId == contactId);
+	}
 }

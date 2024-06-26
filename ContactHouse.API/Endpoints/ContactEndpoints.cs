@@ -8,5 +8,6 @@ public static class ContactEndpoints
 		var endpoint = webApplication.MapGroup(ContactEndpoints.Url);
 
 		endpoint.MapGet("/", GetContacts.HandleAsync);
+		endpoint.MapGet("/{contactId}", GetContact.HandleAsync);
 	}
 }
