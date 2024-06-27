@@ -44,7 +44,7 @@ public sealed class ContactRepositoryTest
 	}
 
 	[Test]
-	public async Task GivenEmptyDatabaseContext_WhenGetContactsAsync_ThenReturnsNoContacts()
+	public async Task GivenEmptyDatabaseContext_WhenGetContactsAsync_ThenReturnsEmptyEnumerable()
 	{
 		var contacts = (await contactRepository.GetContactsAsync()).ToList();
 
