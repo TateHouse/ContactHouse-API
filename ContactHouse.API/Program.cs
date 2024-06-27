@@ -4,6 +4,7 @@ using ContactHouse.API.Profiles;
 using ContactHouse.Domain.Profiles;
 using ContactHouse.Persistence.Databases;
 using ContactHouse.Persistence.Repositories;
+using ContactHouse.Services.Deletion;
 using ContactHouse.Services.Retrieval;
 using Microsoft.EntityFrameworkCore;
 
@@ -57,6 +58,7 @@ public class Program
 	private static void RegisterContactServices(WebApplicationBuilder webApplicationBuilder)
 	{
 		webApplicationBuilder.Services.AddScoped<IContactRetrievalService, ContactRetrievalService>();
+		webApplicationBuilder.Services.AddScoped<IContactDeletionService, ContactDeletionService>();
 	}
 
 	private static void RegisterRepositories(WebApplicationBuilder webApplicationBuilder)

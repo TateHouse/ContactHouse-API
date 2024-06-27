@@ -36,7 +36,7 @@ public sealed class ContactRetrievalServiceTest
 	}
 
 	[Test]
-	public async Task GivenEmptyDatabase_WhenGetContactsAsync_ThenReturnsNoContacts()
+	public async Task GivenEmptyDatabase_WhenGetContactsAsync_ThenReturnsEmptyEnumerable()
 	{
 		mockContactRepository.Setup(mock => mock.GetContactsAsync())
 							 .ReturnsAsync(new List<Contact>());
@@ -58,7 +58,7 @@ public sealed class ContactRetrievalServiceTest
 	}
 
 	[Test]
-	public async Task GivenEmptyDatabase_WhenGetContactAsync_ThenReturnsNoContact()
+	public async Task GivenEmptyDatabase_WhenGetContactAsync_ThenReturnsNull()
 	{
 		mockContactRepository.Setup(mock => mock.GetContactAsync(It.IsAny<int>()))
 							 .ReturnsAsync(() => null);
@@ -69,7 +69,7 @@ public sealed class ContactRetrievalServiceTest
 	}
 
 	[Test]
-	public async Task GivenNonEmptyDatabase_WhenGetContactAsync_ThenReturnsContact()
+	public async Task GivenNonEmptyDatabaseAndContactIdThatExists_WhenGetContactAsync_ThenReturnsContact()
 	{
 		mockContactRepository.Setup(mock => mock.GetContactAsync(1))
 							 .ReturnsAsync(databaseContacts[0]);
@@ -78,5 +78,16 @@ public sealed class ContactRetrievalServiceTest
 
 		Assert.That(contact, Is.Not.Null);
 		Assert.That(contact.ContactId, Is.EqualTo(1));
+	}
+
+	[Test]
+	public async Task GivenNonEmptyDatabaseAndContactIdThatDoesNotExist_WhenGetContactAsync_ThenReturnsNull()
+	{
+		mockContactRepository.Setup(mock => mock.GetContactAsync(-1))
+							 .ReturnsAsync(() => null);
+
+		var contact = await contactRetrievalService.GetContactAsync(-1);
+
+		Assert.That(contact, Is.Null);
 	}
 }

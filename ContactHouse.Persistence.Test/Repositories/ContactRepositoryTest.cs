@@ -44,7 +44,7 @@ public sealed class ContactRepositoryTest
 	}
 
 	[Test]
-	public async Task GivenEmptyDatabaseContext_WhenGetContactsAsync_ThenReturnsNoContacts()
+	public async Task GivenEmptyDatabaseContext_WhenGetContactsAsync_ThenReturnsEmptyEnumerable()
 	{
 		var contacts = (await contactRepository.GetContactsAsync()).ToList();
 
@@ -62,7 +62,7 @@ public sealed class ContactRepositoryTest
 	}
 
 	[Test]
-	public async Task GivenEmptyDatabaseContext_WhenGetContactAsync_ThenReturnsNoContacts()
+	public async Task GivenEmptyDatabaseContext_WhenGetContactAsync_ThenReturnsNull()
 	{
 		var contact = await contactRepository.GetContactAsync(1);
 
@@ -70,7 +70,7 @@ public sealed class ContactRepositoryTest
 	}
 
 	[Test]
-	public async Task GivenNonEmptyDatabaseContext_WhenGetContactAsync_ThenReturnsContact()
+	public async Task GivenNonEmptyDatabaseContextAndContactIdThatExists_WhenGetContactAsync_ThenReturnsContact()
 	{
 		await SeedDatabaseAsync();
 
@@ -82,6 +82,44 @@ public sealed class ContactRepositoryTest
 			Assert.That(contact.ContactId, Is.EqualTo(1));
 			Assert.That(contact.FirstName, Is.EqualTo("John"));
 		});
+	}
+
+	[Test]
+	public async Task GivenNonEmptyDatabaseContextAndContactIdThatDoesNotExist_WhenGetContactAsync_ThenReturnsNull()
+	{
+		await SeedDatabaseAsync();
+
+		var contact = await contactRepository.GetContactAsync(-1);
+
+		Assert.That(contact, Is.Null);
+	}
+
+	[Test]
+	public async Task GivenEmptyDatabaseContext_WhenDeleteContactAsync_ThenReturnsFalse()
+	{
+		var wasDeleted = await contactRepository.DeleteContactAsync(1);
+
+		Assert.That(wasDeleted, Is.False);
+	}
+
+	[Test]
+	public async Task GivenNonEmptyDatabaseContextAndContactIdThatExists_WhenDeleteContactAsync_ThenReturnsTrue()
+	{
+		await SeedDatabaseAsync();
+
+		var wasDeleted = await contactRepository.DeleteContactAsync(1);
+
+		Assert.That(wasDeleted, Is.True);
+	}
+
+	[Test]
+	public async Task GivenNonEmptyDatabaseContextAndContactIdThatDoesNotExist_WhenDeleteContactAsync_ThenReturnsFalse()
+	{
+		await SeedDatabaseAsync();
+
+		var wasDeleted = await contactRepository.DeleteContactAsync(-1);
+
+		Assert.That(wasDeleted, Is.False);
 	}
 
 	private async Task SeedDatabaseAsync()

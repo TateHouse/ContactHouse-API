@@ -9,5 +9,6 @@ public static class ContactEndpoints
 
 		endpoint.MapGet("/", GetContacts.HandleAsync);
 		endpoint.MapGet("/{contactId}", GetContact.HandleAsync);
+		endpoint.MapDelete("/{contactId}", DeleteContact.HandleAsync);
 	}
 }
